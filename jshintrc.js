@@ -16,6 +16,7 @@ module.exports = {
   globals: {
     BMap: true
   },
+  esversion: 6,
 
   // debug options
   devel: true
