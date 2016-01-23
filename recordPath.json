@@ -1,0 +1,15 @@
+{
+  "nextFreeModuleId": 1,
+  "modules": {
+    "byIdentifier": {
+      "../node_modules/jshint-loader/index.js!script/index.js": 0
+    }
+  },
+  "nextFreeChunkId": 1,
+  "chunks": {
+    "byName": {
+      "index": 0
+    },
+    "byBlocks": {}
+  }
+}

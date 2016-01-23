@@ -15,6 +15,7 @@ var isProd = 'production' === process.env.NODE_ENV;
 var jsHintOpt = _.defaults(
   {}, require(getDir("./jshintrc.js"))
 );
+
 if (isProd) {
   jsHintOpt.devel = false;
 }
@@ -69,6 +70,7 @@ var cfg = {
     extensions: ["", ".js", ".scss"]
   },
 
+  recordsPath: getDir('./recordPath.json'),
   progress: false, // Don't show progress 
   failOnError: true, // don't report error to grunt if webpack find errors 
   devtool: 'eval'
