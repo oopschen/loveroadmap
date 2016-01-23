@@ -39,6 +39,13 @@ var cfg = {
     loaders: [
       { test: /\.css$/, loader: "style!css"},
       { test: /\.jsx\.js/, loader: "jsx" },
+      { test: /\.json/, loader: "json-loader" },
+
+      // bootstrap
+      {test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/font-woff'},
+      {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream'},
+      {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file'},
+      {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml'}
     ],
 
     postLoaders: [
@@ -63,10 +70,9 @@ var cfg = {
 
   resolve: {
     root: [
-      getDir("src"),
+      getDir("./src"),
+      getDir("./node_modules/bootstrap/dist")
     ],
-    alias: {
-    },
     extensions: ["", ".js", ".scss"]
   },
 

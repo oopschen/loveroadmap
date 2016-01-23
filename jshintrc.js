@@ -12,7 +12,12 @@ module.exports = {
   eqnull: true,
   scripturl: true,
   browser: true,
+  // globals
+  globals: {
+    BMap: true
+  },
 
   // debug options
   devel: true
+
 };
