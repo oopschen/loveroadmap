@@ -1,3 +1,5 @@
+'use strict';
+
 var webpack = require('webpack');
 var path = require('path');
 var _ = require('underscore');
@@ -7,26 +9,35 @@ var getDir = function() {
   return path.join.apply(path, [__dirname].concat(args));
 };
 
-var isProd = "production" === process.env["NODE_ENV"];
 
+// env judgment
+var isProd = 'production' === process.env.NODE_ENV;
+var jsHintOpt = _.defaults(
+  {}, require(getDir("./jshintrc.js"))
+);
+if (isProd) {
+  jsHintOpt.devel = false;
+}
+
+// configuration
 var cfg = {
   // webpack options 
   context: getDir('./src'),
 
   entry: {
-    index: ["./script/index_jsx.js"]
+    index: 'script/index.js'
   },
 
   output: {
     path: getDir('./build'),
-    filename: "./e/[chunkhash].js",
+    filename: "./e/[name].js",
     chunkFilename: './c/[chunkhash].js'
   },
 
   module: {
     loaders: [
       { test: /\.css$/, loader: "style!css"},
-      { test: /.jsx\.js/, loader: "jsx" },
+      { test: /\.jsx\.js/, loader: "jsx" },
     ],
 
     postLoaders: [
@@ -38,46 +49,35 @@ var cfg = {
     ]
   },
 
-  jshint: _.defaults(
-    {
-      browser: true
-    },
-    require(path.join(__dirname, "jshintrc.js"))),
+  jshint: jsHintOpt,
 
-    plugins: [
-      new webpack.optimize.OccurenceOrderPlugin(true)
-    ],
-
-    resolve: {
-      root: [
-        getDir("src"),
-      ],
-      alias: {
-      },
-      extensions: ["", ".js", ".scss"]
-    },
-
-    progress: false, // Don't show progress 
-    // Defaults to true 
-
-    failOnError: true // don't report error to grunt if webpack find errors 
-
-};
-
-if (!isProd) {
-  cfg.watch = true;
-  cfg.keepalive = true;
-  cfg.devtool = 'eval';
-  cfg.jshint.devel = true;
-
-} else {
-  var plugins = [
+  plugins: [
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': "\"" + process.env["NODE_ENV"] + "\""
       }
     }),
+    new webpack.optimize.OccurenceOrderPlugin(true)
+  ],
 
+  resolve: {
+    root: [
+      getDir("src"),
+    ],
+    alias: {
+    },
+    extensions: ["", ".js", ".scss"]
+  },
+
+  progress: false, // Don't show progress 
+  failOnError: true, // don't report error to grunt if webpack find errors 
+  devtool: 'eval'
+};
+
+// minify
+if (isProd) {
+  // concat plugins
+  var plugins = [
     new webpack.optimize.UglifyJsPlugin({
       mangle: true,
       compress: {
@@ -93,4 +93,5 @@ if (!isProd) {
   cfg.plugins = cfg.plugins.concat(plugins);
 }
 
+// export
 module.exports = cfg;

@@ -10,5 +10,9 @@ module.exports = {
   unused: true,
   boss: true,
   eqnull: true,
-  scripturl: true
+  scripturl: true,
+  browser: true,
+
+  // debug options
+  devel: true
 };
