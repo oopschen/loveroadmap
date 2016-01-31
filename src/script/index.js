@@ -1,6 +1,8 @@
 require('css/bootstrap.css');
-var Hammer = require('hammerjs');
-
-require(['data.json', 'jquery'], function (data, $) {
+require(['script/pathplayer'], function (PathPlayer) {
   'use strict';
+  let pp = new PathPlayer({
+    target: '#container'
+  }, require('../data.json'));
+  pp.play();
 });

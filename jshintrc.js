@@ -14,7 +14,8 @@ module.exports = {
   browser: true,
   // globals
   globals: {
-    BMap: true
+    BMap: true,
+    BMAP_ANIMATION_BOUNCE: true
   },
   esversion: 6,
 

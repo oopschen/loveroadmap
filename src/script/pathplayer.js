@@ -5,7 +5,7 @@
  * @date 2016.1.31
  */
 
-module.exports = (function($, hr, tool, mapHelper) {
+module.exports = (function($, hr, mapHelper) {
   'use strict';
   
   const DEF_OPT = {
@@ -24,21 +24,21 @@ module.exports = (function($, hr, tool, mapHelper) {
 
   pathPlayer.prototype._initDOM = function() {
     var html = `
-        <div id="${this._o.id}-map" style="display:none"></div>
+        <div id="${this._o.id}-map" style="display:none;" class="full-height"></div>
 
         <div id="${this._o.id}-letter">
-          <div class="panel-heading">
-            <h2 class="panel-title">title</h2>
-          </div>
-
           <div class="panel panel-info">
+            <div class="panel-heading">
+              <h2 class="panel-title">title</h2>
+            </div>
+
             <div class="panel-body"></div>
             <div class="panel-footer">Try swipe left or right.</div>
           </div>
 
         </div>
     `;
-    $(this._o['target']).html(html);
+    $(this._o.target).html(html);
   };
 
   pathPlayer.prototype._bindEvts = function() {
@@ -66,7 +66,7 @@ module.exports = (function($, hr, tool, mapHelper) {
 
       var page = this._prev();
       // show letter
-      this._render(this._formatTitle(page), page.word);
+      this._render(this._formatTitle(page), page);
       
     }.bind(this));
 
@@ -82,7 +82,7 @@ module.exports = (function($, hr, tool, mapHelper) {
       }
 
       var page = this._next();
-      this._render(this._formatTitle(page), page.word);
+      this._render(this._formatTitle(page), page);
 
     }.bind(this));
 
@@ -129,7 +129,8 @@ module.exports = (function($, hr, tool, mapHelper) {
   };
 
   pathPlayer.prototype._formatTitle = function(page) {
-    let numText = tool.num2Text(page._inx);
+    let i = page._inx;
+    let numText = 10 > i ? ('00' + i) : (100 > i ? ('0' + i) : i);
     return `第 ${numText} 朵玫瑰(于${page.date})`;
   };
 
@@ -138,15 +139,15 @@ module.exports = (function($, hr, tool, mapHelper) {
     if (!this._mt) {
       this._mt = mapHelper('baidu', {
         key: '1qTGjfZzs2IgmZRtT12lZzVY',
-        container: '#' + this._o.id + '-map'
+        container: this._o.id + '-map'
       });
     }
 
     if (page.loc) {
       var loc = page.loc.split(',');
-      this._mt.drawPoint(loc[0], loc[1], page._inx); 
+      this._toggleMap();
+      this._mt.drawPoint(parseFloat(loc[0]), parseFloat(loc[1]), page._inx); 
       setTimeout(function() {
-        this._toggleMap();
         this._renderLetter(title, page.word);
       }.bind(this), this._o.mapHiddenDelayMS);
 
@@ -157,11 +158,14 @@ module.exports = (function($, hr, tool, mapHelper) {
 
   };
 
+  pathPlayer.prototype.play = function() {
+    this._render('写在前面', this._d.intro);
+  };
+
   return pathPlayer;
 }(
   require('jquery'),
   require('hammerjs'),
-  require('tool'),
   require('script/maphelper')
-));;
+));
 
