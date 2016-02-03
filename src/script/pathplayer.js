@@ -97,8 +97,8 @@ module.exports = (function($, hr, mapHelper) {
   };
   
   pathPlayer.prototype._next = function() {
-    let ele = this._d.road[this._sInx];
-    ele._inx = ++this._sInx; 
+    let ele = this._d.road[++this._sInx];
+    ele._inx = this._sInx + 1; 
     return ele;
   };
   
@@ -110,8 +110,8 @@ module.exports = (function($, hr, mapHelper) {
   
   pathPlayer.prototype._renderLetter = function(title, content) {
     let box = $('#' + this._o.id + '-letter');
-    box.find('panel-title').html(title);
-    box.find('panel-body').html(content);
+    box.find('.panel-title').html(title);
+    box.find('.panel-body').html(content);
   };
 
   pathPlayer.prototype._toggleMap = function() {
