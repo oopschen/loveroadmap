@@ -54,35 +54,20 @@ module.exports = (function($, hr, mapHelper) {
     hammerManager.on('swipeleft', function() {
       // move back 
       if (!this._hasPrev()) {
-        if (0 !== this._sInx) {
-          return;
-        }
-
-        this._sInx--;
-        this._render('写在前面', this._d.intro);
-
         return;
       }
 
-      var page = this._prev();
       // show letter
-      this._render(this._formatTitle(page), page);
+      this._render(this._prev());
       
     }.bind(this));
 
     hammerManager.on('swiperight', function() {
       if (!this._hasNext()) {
-        if (this._d.length !== this._sInx) {
-          return;
-        }
-
-        this._sInx++;
-        this._render('写在最后', this._d.last);
         return;
       }
 
-      var page = this._next();
-      this._render(this._formatTitle(page), page);
+      this._render(this._next());
 
     }.bind(this));
 
@@ -93,18 +78,19 @@ module.exports = (function($, hr, mapHelper) {
   };
   
   pathPlayer.prototype._hasNext = function() {
-    return this._d.road.length > this._sInx;
+    console.log('a');
+    return (this._d.length - 1) > this._sInx;
   };
   
   pathPlayer.prototype._next = function() {
-    let ele = this._d.road[++this._sInx];
-    ele._inx = this._sInx + 1; 
+    let ele = this._d[++this._sInx];
+    ele._inx = this._sInx; 
     return ele;
   };
   
   pathPlayer.prototype._prev = function() {
-    let ele = this._d.road[this._sInx];
-    ele._inx = --this._sInx; 
+    let ele = this._d[--this._sInx];
+    ele._inx = this._sInx; 
     return ele;
   };
   
@@ -121,20 +107,31 @@ module.exports = (function($, hr, mapHelper) {
       this._mapShow = false;
       map.css('display', 'none');
       letter.css('display', 'block');
+
     } else {
-      this._mapShow = false;
+      this._mapShow = true;
       letter.css('display', 'none');
       map.css('display', 'block');
+
     }
   };
 
   pathPlayer.prototype._formatTitle = function(page) {
+    if (0 === this._sInx) {
+      return "写在前面";
+
+    } else if ((this._d.length - 1) === this._sInx) {
+      return "写给未来";
+
+    }
+
     let i = page._inx;
     let numText = 10 > i ? ('00' + i) : (100 > i ? ('0' + i) : i);
     return `第 ${numText} 朵玫瑰(于${page.date})`;
   };
 
-  pathPlayer.prototype._render = function(title, page) {
+  pathPlayer.prototype._render = function(page) {
+    let title = this._formatTitle(page);
     // center map
     if (!this._mt) {
       this._mt = mapHelper('baidu', {
@@ -148,6 +145,7 @@ module.exports = (function($, hr, mapHelper) {
       this._toggleMap();
       this._mt.drawPoint(parseFloat(loc[1]), parseFloat(loc[0]), page._inx); 
       setTimeout(function() {
+        this._toggleMap();
         this._renderLetter(title, page.word);
       }.bind(this), this._o.mapHiddenDelayMS);
 
@@ -159,7 +157,7 @@ module.exports = (function($, hr, mapHelper) {
   };
 
   pathPlayer.prototype.play = function() {
-    this._render('写在前面', this._d.intro);
+    this._render(this._next());
   };
 
   return pathPlayer;
