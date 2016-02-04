@@ -146,7 +146,7 @@ module.exports = (function($, hr, mapHelper) {
     if (page.loc) {
       var loc = page.loc.split(',');
       this._toggleMap();
-      this._mt.drawPoint(parseFloat(loc[0]), parseFloat(loc[1]), page._inx); 
+      this._mt.drawPoint(parseFloat(loc[1]), parseFloat(loc[0]), page._inx); 
       setTimeout(function() {
         this._renderLetter(title, page.word);
       }.bind(this), this._o.mapHiddenDelayMS);

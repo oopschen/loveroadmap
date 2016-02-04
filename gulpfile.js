@@ -9,7 +9,7 @@ var WebpackDevServer = require("webpack-dev-server");
 var host='127.0.0.1', port= 8080;
 
 gulp.task('default', function() {
-    gutil.log("run command for development: webpack-dev-server --content-base src/ ");
+    gutil.log("run command for development: webpack-dev-server --watch --hot --content-base src/ ");
 });
 
 gulp.task('prod', function() {
