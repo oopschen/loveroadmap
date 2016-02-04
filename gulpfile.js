@@ -9,18 +9,7 @@ var path = require('path');
 var host='127.0.0.1', port= 8080;
 
 gulp.task('default', function() {
-    'use strict';
-   //  gutil.log("run command for development: webpack-dev-server --watch --hot --content-base src/ ");
-    var webpackCfg = require('./webpack.config.js');
-    new WebpackDevServer(webpack(webpackCfg), {
-        // server and middleware options
-        hot: true,
-        contentBase: path.resolve(path.dirname(__filename), './src')
-    }).listen(8080, "localhost", function(err) {
-        if(err) throw new gutil.PluginError("webpack-dev-server", err);
-        // Server listening
-        gutil.log("[webpack-dev-server]", `http://${host}:${port}/webpack-dev-server/index.html`);
-    });
+   gutil.log("run command for development: webpack-dev-server --watch --hot --content-base src/ ");
 });
 
 gulp.task('prod', function() {

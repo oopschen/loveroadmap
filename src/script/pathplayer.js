@@ -10,7 +10,7 @@ module.exports = (function($, hr, mapHelper) {
   
   const DEF_OPT = {
     id: 'pathplayer',
-    mapHiddenDelayMS: 1500
+    mapHiddenDelayMS: 1000
   };
 
   let pathPlayer = function(opt, data) {
@@ -150,7 +150,7 @@ module.exports = (function($, hr, mapHelper) {
       }.bind(this), this._o.mapHiddenDelayMS);
 
     } else {
-      this._renderLetter(title, page);
+      this._renderLetter(title, page.word);
 
     }
 

@@ -101,9 +101,6 @@ if (isProd) {
 
   cfg.plugins = cfg.plugins.concat(plugins);
 
-} else {
-  cfg.watch = true;
-
 }
 
 // export
