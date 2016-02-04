@@ -76,7 +76,6 @@ module.exports = (function($, hr, mapHelper) {
   };
   
   pathPlayer.prototype._hasNext = function() {
-    console.log('a');
     return (this._d.length - 1) > this._sInx;
   };
   
