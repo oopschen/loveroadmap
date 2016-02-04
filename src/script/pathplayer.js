@@ -10,7 +10,7 @@ module.exports = (function($, hr, mapHelper) {
   
   const DEF_OPT = {
     id: 'pathplayer',
-    mapHiddenDelayMS: 1000
+    mapHiddenDelayMS: 2000
   };
 
   let pathPlayer = function(opt, data) {
@@ -42,10 +42,8 @@ module.exports = (function($, hr, mapHelper) {
   };
 
   pathPlayer.prototype._bindEvts = function() {
-    let letterEle = $('#' + this._o.id + '-letter');
-
     // set up hammer
-    var hammerManager = new hr.Manager(letterEle[0], {
+    var hammerManager = new hr.Manager($(this._o.target)[0], {
       recognizers: [
         [hr.Swipe, [{threadhold: 200}]]
       ]
