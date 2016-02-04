@@ -6,7 +6,7 @@ var _ = require('underscore');
 
 var getDir = function() {
   var args = Array.prototype.slice.call(arguments);
-  return path.join.apply(path, [__dirname].concat(args));
+  return path.resolve.apply(path, [path.dirname(__filename)].concat(args));
 };
 
 
@@ -100,6 +100,10 @@ if (isProd) {
   ];
 
   cfg.plugins = cfg.plugins.concat(plugins);
+
+} else {
+  cfg.watch = true;
+
 }
 
 // export
