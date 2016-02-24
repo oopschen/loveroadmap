@@ -26,6 +26,7 @@ var cfg = {
   context: getDir('./src'),
 
   entry: {
+    vendor: ['jquery'],
     index: 'script/index.js'
   },
 
@@ -61,6 +62,7 @@ var cfg = {
   jshint: jsHintOpt,
 
   plugins: [
+    new webpack.optimize.CommonsChunkPlugin("vendor", "v.b.js"),
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': "\"" + process.env["NODE_ENV"] + "\""

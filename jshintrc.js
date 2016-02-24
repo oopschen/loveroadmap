@@ -15,7 +15,8 @@ module.exports = {
   // globals
   globals: {
     BMap: true,
-    BMAP_ANIMATION_BOUNCE: true
+    BMAP_ANIMATION_BOUNCE: true,
+    BMapLib: true
   },
   esversion: 6,
 

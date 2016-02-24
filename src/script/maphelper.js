@@ -2,31 +2,27 @@
  * <p>map helpr</p>
  *
  * @author ray
- * @date 2016.1.31
+ * @date 2016.2.24
  */
 module.exports = (function($) {
   'use strict';
-  const BAIDU_DEF_OPT = {
+  var BAIDU_DEF_OPT = {
     container: 'main'
   };
   
-  let BaiduHelper = function(option) {
+  var BaiduHelper = function(option) {
     this._opt = $.extend({}, BAIDU_DEF_OPT, option);
-    $('<script type="text/javascript"></script>')
-      .attr('src', `http://api.map.baidu.com/api?v=2.0&ak=${this._opt.key}`)
-      .appendTo('body');
-
     this._m = new BMap.Map(this._opt.container);
     this._mks = [];
   };
 
   BaiduHelper.prototype.drawPoint = function(lat, lng, label) {
-    let m = this._m;
-    let allOverlay = this._mks,
+    var m = this._m;
+    var allOverlay = this._mks,
         inMapOverlay,
         point;
-    for (let i = 0; i < allOverlay.length; i++) {
-      let overlay = allOverlay[i];
+    for (var i = 0; i < allOverlay.length; i++) {
+      var overlay = allOverlay[i];
       // cancel animation
       if (i === (allOverlay.length - 1)) {
         overlay.setAnimation(null);
@@ -53,7 +49,7 @@ module.exports = (function($) {
     m.centerAndZoom(point, 18);
   };
 
-  let helper = function(typ, option) {
+  var helper = function(typ, option) {
     if ('baidu' === typ) {
       return new BaiduHelper(option);
     }
