@@ -39,14 +39,26 @@ module.exports = (function($) {
       point = new BMap.Point(lng, lat);
       inMapOverlay = new BMap.Marker(point);  
       m.addOverlay(inMapOverlay);
-      if (label) {
-        inMapOverlay.setLabel(label);
+      if (undefined !== label) {
+        var labelObj = new BMap.Label(label, {
+          position : point,
+          offset   : new BMap.Size(-60, 5)
+        });
+        labelObj.setStyle({
+         fontSize : "15px",
+         border: 'none'
+        });
+        m.addOverlay(labelObj);
       }
       allOverlay.push(inMapOverlay);
     }
 
     inMapOverlay.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
     m.centerAndZoom(point, 18);
+  };
+
+  BaiduHelper.prototype.moveTo = function(lat, lng) {
+    this._m.panTo(new BMap.Point(lng, lat));
   };
 
   var helper = function(typ, option) {
