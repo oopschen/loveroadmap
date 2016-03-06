@@ -14,7 +14,7 @@ gulp.task('default', function() {
    gutil.log("run command for development: webpack-dev-server --watch --hot --content-base src/ ");
 });
 
-gulp.task('prod', ['clean'], function() {
+gulp.task('prod', ['clean', 'deploy-html'], function() {
   // set env
   process.env.NODE_ENV = 'production';
   var webpackCfg = require('./webpack.config.js');
@@ -27,6 +27,10 @@ gulp.task('prod', ['clean'], function() {
   });
 });
 
+gulp.task('deploy-html', function() {
+   return gulp.src('src/html/**/*', {base: 'src'})
+          .pipe(gulp.dest('build'));
+});
 
 gulp.task('deploy', function() {
   return gulp.src('./build/**/*')
@@ -35,6 +39,6 @@ gulp.task('deploy', function() {
 
 gulp.task('clean', function() {
   return del([
-    './build/'
+    './build/**/*'
   ]);
 });
