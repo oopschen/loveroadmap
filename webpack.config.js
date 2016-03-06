@@ -35,9 +35,9 @@ var cfg = {
 
   output: {
     path: getDir('./build'),
-    filename: "./e/[name].js",
-    chunkFilename: './c/[chunkhash].js',
-    publicPath: '/'
+    filename: "[name].e.js",
+    chunkFilename: '[chunkhash].c.js',
+    publicPath: '/loveroadmap/'
   },
 
   module: {
