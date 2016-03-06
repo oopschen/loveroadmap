@@ -27,7 +27,10 @@ var cfg = {
 
   entry: {
     vendor: ['jquery'],
-    index: 'script/index.js'
+    index: [
+      'bootstrap-webpack!script/bootstrap-index.js',
+      'script/index.js'
+    ]
   },
 
   output: {
@@ -73,8 +76,7 @@ var cfg = {
 
   resolve: {
     root: [
-      getDir("./src"),
-      getDir("./node_modules/bootstrap/dist")
+      getDir("./src")
     ],
     extensions: ["", ".js", ".scss"]
   },

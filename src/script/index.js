@@ -1,4 +1,3 @@
-require('css/bootstrap.css');
 var mapHelper = require('script/maphelper');
 var $ = require('jquery');
 require(['data.json'], function(pathData) {
