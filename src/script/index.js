@@ -60,9 +60,9 @@ require(['data.json'], function(pathData) {
 
   $(function() {
     // render num
-    $('#letterNum').html(letterNum);
-    $('#locNum').html(locCnt);
-    $('#timeRange').html(timeRangeMS/1000/60/60 + '小时');
+    $('#letterNum').html(letterNum + ' 封');
+    $('#locNum').html(locCnt + ' 地方');
+    $('#timeRange').html(timeRangeMS/1000/60/60 + ' 小时');
 
     $('#nextBtn').click(function() {
       $('#preface').css('display', 'none');
