@@ -38,8 +38,8 @@ require(['data.json'], function(pathData) {
   // calculate time range
   var startDateArr = pathData[0].date.split('.'),
       endDateArr = pathData[pathData.length-1].date.split('.');
-  var timeRangeMS = new Date(startDateArr[0], startDateArr[1], startDateArr[2]).getTime() - 
-                      new Date(endDateArr[0], endDateArr[1], endDateArr[2]).getTime();
+  var timeRangeMS = new Date(endDateArr[0], endDateArr[1]-1, endDateArr[2]).getTime() - 
+                      new Date(startDateArr[0], startDateArr[1]-1, startDateArr[2]).getTime();
 
   var aniDrawPoint = function(mapIns, locData, i) {
       if (i >= locData.length) {
@@ -61,7 +61,7 @@ require(['data.json'], function(pathData) {
     // render num
     $('#letterNum').html(letterNum + ' 封');
     $('#locNum').html(locCnt + ' 地方');
-    $('#timeRange').html(timeRangeMS/1000/60/60 + ' 小时');
+    $('#timeRange').html(timeRangeMS/1000/60/60/24 + ' 天');
 
     $('#nextBtn').click(function() {
       $('#preface').css('display', 'none');
